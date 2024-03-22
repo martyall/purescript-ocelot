@@ -1,159 +1,103 @@
-{-
-Welcome to your new Dhall package-set!
-
-Below are instructions for how to edit this file for most use
-cases, so that you don't need to know Dhall to use it.
-
-## Warning: Don't Move This Top-Level Comment!
-
-Due to how `dhall format` currently works, this comment's
-instructions cannot appear near corresponding sections below
-because `dhall format` will delete the comment. However,
-it will not delete a top-level comment like this one.
-
-## Use Cases
-
-Most will want to do one or both of these options:
-1. Override/Patch a package's dependency
-2. Add a package not already in the default package set
-
-This file will continue to work whether you use one or both options.
-Instructions for each option are explained below.
-
-### Overriding/Patching a package
-
-Purpose:
-- Change a package's dependency to a newer/older release than the
-    default package set's release
-- Use your own modified version of some dependency that may
-    include new API, changed API, removed API by
-    using your custom git repo of the library rather than
-    the package set's repo
-
-Syntax:
-Replace the overrides' "{=}" (an empty record) with the following idea
-The "//" or "⫽" means "merge these two records and
-  when they have the same value, use the one on the right:"
--------------------------------
-let overrides =
-  { packageName =
-      upstream.packageName // { updateEntity1 = "new value", updateEntity2 = "new value" }
-  , packageName =
-      upstream.packageName // { version = "v4.0.0" }
-  , packageName =
-      upstream.packageName // { repo = "https://www.example.com/path/to/new/repo.git" }
-  }
--------------------------------
-
-Example:
--------------------------------
-let overrides =
-  { halogen =
-      upstream.halogen // { version = "master" }
-  , halogen-vdom =
-      upstream.halogen-vdom // { version = "v4.0.0" }
-  }
--------------------------------
-
-### Additions
-
-Purpose:
-- Add packages that aren't already included in the default package set
-
-Syntax:
-Replace the additions' "{=}" (an empty record) with the following idea:
--------------------------------
-let additions =
-  { package-name =
-       { dependencies =
-           [ "dependency1"
-           , "dependency2"
-           ]
-       , repo =
-           "https://example.com/path/to/git/repo.git"
-       , version =
-           "tag ('v4.0.0') or branch ('master')"
-       }
-  , package-name =
-       { dependencies =
-           [ "dependency1"
-           , "dependency2"
-           ]
-       , repo =
-           "https://example.com/path/to/git/repo.git"
-       , version =
-           "tag ('v4.0.0') or branch ('master')"
-       }
-  , etc.
-  }
--------------------------------
-
-Example:
--------------------------------
-let additions =
-  { benchotron =
-      { dependencies =
-          [ "arrays"
-          , "exists"
-          , "profunctor"
-          , "strings"
-          , "quickcheck"
-          , "lcg"
-          , "transformers"
-          , "foldable-traversable"
-          , "exceptions"
-          , "node-fs"
-          , "node-buffer"
-          , "node-readline"
-          , "datetime"
-          , "now"
-          ]
-      , repo =
-          "https://github.com/hdgarrood/purescript-benchotron.git"
-      , version =
-          "v7.0.0"
-      }
-  }
--------------------------------
--}
--------------------------
--- Additional Packages --
--------------------------
 let halogen-renderless =
-      { dependencies = [ "prelude", "control" ]
-      , repo =
-          "https://github.com/purescript-deprecated/purescript-halogen-renderless"
-      , version = "v0.0.4"
-      }
+        { dependencies = [ "prelude", "control" ]
+        , repo =
+            "https://github.com/purescript-deprecated/purescript-halogen-renderless"
+        , version = "v0.0.4"
+        }
 
 let html-parser-halogen =
-      { dependencies = [ "string-parsers", "halogen" ]
-      , repo = "https://github.com/rnons/purescript-html-parser-halogen.git"
-      , version = "v1.0.0-rc.2"
-      }
+        { dependencies =
+          [ "arrays"
+          , "control"
+          , "dom-indexed"
+          , "foldable-traversable"
+          , "effect"
+          , "halogen"
+          , "maybe"
+          , "prelude"
+          , "psci-support"
+          , "jest"
+          ]
+        , repo = "https://github.com/rnons/purescript-html-parser-halogen.git"
+        , version = "035a51d02ba9f8b70c3ffd9fe31a3f5bed19941c"
+        }
 
 let svg-parser =
-      { dependencies = [ "prelude", "string-parsers" ]
-      , repo = "https://github.com/citizennet/purescript-svg-parser.git"
-      , version = "v2.0.0"
-      }
+        { dependencies =
+          [ "arrays"
+          , "control"
+          , "either"
+          , "lists"
+          , "prelude"
+          , "string-parsers"
+          , "strings"
+          ]
+        , repo = "https://github.com/rnons/purescript-svg-parser.git"
+        , version = "v3.0.0"
+        }
 
 let svg-parser-halogen =
-      { dependencies = [ "svg-parser", "halogen" ]
-      , repo = "https://github.com/rnons/purescript-svg-parser-halogen.git"
-      , version = "v2.0.0-rc.1"
-      }
+        { dependencies =
+          [ "arrays"
+          , "bifunctors"
+          , "either"
+          , "halogen"
+          , "prelude"
+          , "svg-parser"
+          ]
+        , repo = "https://github.com/rnons/purescript-svg-parser-halogen.git"
+        , version = "v2.0.0"
+        }
+
+let option =
+        { dependencies =
+          [ "aff"
+          , "argonaut-codecs"
+          , "argonaut-core"
+          , "codec"
+          , "codec-argonaut"
+          , "datetime"
+          , "effect"
+          , "either"
+          , "enums"
+          , "foldable-traversable"
+          , "foreign"
+          , "foreign-object"
+          , "functors"
+          , "identity"
+          , "lists"
+          , "maybe"
+          , "prelude"
+          , "record"
+          , "simple-json"
+          , "spec"
+          , "transformers"
+          , "tuples"
+          , "unsafe-coerce"
+          ]
+        , repo = "https://github.com/jmatsushita/purescript-option"
+        , version = "upgrade-codec"
+        }
+
+let halogen-select =
+        { dependencies = [ "halogen", "halogen-hooks", "halogen-hooks-extra" ]
+        , repo = "https://github.com/f-o-a-m/purescript-halogen-select"
+        , version = "v6.0.0-purs-0.15"
+        }
 
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.14.4-20210905/packages.dhall sha256:140f3630801f2b02d5f3a405d4872e0af317e4ef187016a6b00f97d59d6275c6
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.8-20230617/packages.dhall
+        sha256:292a92e32db0272db2089f3234140287c9eaf2fc15b6790a3c51f41471050eeb
 
 let overrides = {=}
 
 let additions =
-      { halogen-renderless
-      , html-parser-halogen
+      { html-parser-halogen
       , svg-parser
       , svg-parser-halogen
+      , option
+      , halogen-select
+      , halogen-renderless
       }
 
 in  upstream // overrides // additions
